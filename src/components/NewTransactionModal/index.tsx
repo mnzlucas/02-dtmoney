@@ -22,6 +22,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
       >
         <img src={closeImg} alt="Fechar Modal" />
       </button>
+
       <Container>
         <h2>Cadastrar Transação</h2>
 
