@@ -9,7 +9,7 @@ interface Transaction {
   type:     string,
   category: string,
   amount:   number,
-  createAt: string,
+  createdAt: string,
 
 }
 export function TransactionsTable() {
@@ -18,7 +18,7 @@ export function TransactionsTable() {
 
   useEffect(() => {
     api.get('transactions')
-      .then(response => setTransactions(response.data.transactions))
+      .then(response => console.log(response.data.transactions))
   }, []);
 
   return (
@@ -34,12 +34,22 @@ export function TransactionsTable() {
         </thead>
 
         <tbody>
-          {transactions.map(transactions => (
-            <tr key={transactions.id}>
-              <td>{transactions.title}</td>
-              <td className={transactions.type}>{transactions.amount}</td>
-              <td>{transactions.category} </td>
-              <td>{transactions.createAt}</td>
+          {transactions.map(transaction => (
+            <tr key={transaction.id}>
+              <td>{transaction.title}</td>
+              <td className={transaction.type}>
+                {new Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL'
+                }).format(transaction.amount)}
+              </td>
+              <td>{transaction.category} </td>
+              <td>
+              {/* new Intl.DateTimeFormat('pt-BR').format(
+                  new Date(transaction.createdAt)
+                ) */}
+                {transaction.createdAt}
+              </td>
             </tr>
           ))}
         </tbody>
